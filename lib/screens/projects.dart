@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../elements/appbar.dart';
+import '../elements/projcards.dart';
 
 class ProjectsPage extends StatefulWidget {
   const ProjectsPage({super.key});
@@ -15,6 +16,63 @@ class _ProjectsPageState extends State<ProjectsPage>
   late Animation<Offset> _offsetAnimation;
   late Animation<double> _opacityAnimation;
   int _currentIndex = 0;
+
+  final List<Map<String, dynamic>> _projects = [
+    {
+      'title': 'FindOut',
+      'description':
+          'O Find Out é uma plataforma avançada de recuperação veicular que utiliza tecnologia de ponta para auxiliar na localização e recuperação de veículos...',
+      'features': [
+        'Supabase integrations',
+        'Login/Logout/Register/Recover',
+        'Google Maps integration',
+        'Camera integration',
+        'Realtime Database',
+        '2 FactorAuth',
+      ],
+      'imagePath': 'assets/images/projects/findout.png',
+      'tags': ['Flutter', 'Android'],
+      'link':
+          'https://play.google.com/store/apps/details?id=com.findoutbr.findout', // Novo link
+      'reviewerName': 'John Doe', // Novo campo
+      'reviewerDescription':
+          'Tech Enthusiast and Flutter Developer.', // Novo campo
+      'reviewerImagePath': 'assets/images/reviewers/john_doe.jpg', // Novo campo
+    },
+    {
+      'title': 'Validata',
+      'description':
+          'Plataforma de gestão inteligente da validade de seus produtos monitorando, alertando e gerando relatórios sobre o vencimento.',
+      'features': ['Firebase Auth', 'Firebase Database', 'Firebase Storage'],
+      'imagePath': 'assets/images/projects/vdata.png',
+      'tags': ['Web', 'iOS', 'Android', 'Flutter'],
+      'link': 'https://www.linkedin.com/company/validatabr', // Novo link
+      'reviewerName': 'Henrique Jann', // Novo campo
+      'reviewerDescription': 'Encheção de linguiça.', // Novo campo
+      'reviewerImagePath': 'assets/images/projects/henrique.jpg', // Novo campo
+    },
+    {
+      'title': 'B2 Inteligência em Cobrança',
+      'description':
+          'Transformando inadimplência em inteligência para o seu negócio.',
+      'features': [
+        'PDF Generation',
+        'Firebase Integration',
+        'REST API',
+        'PDF Security',
+        'Heroku Deployment',
+        'Spreadsheet Integration',
+      ],
+      'imagePath': 'assets/images/projects/b2.jpg',
+      'tags': ['NodeJS', 'Web'],
+      'link': 'https://www.linkedin.com/company/b2cobrancas', // Novo link
+      'reviewerName': 'Fernando Berwanger', // Novo campo
+      'reviewerDescription':
+          'Full Stack Developer and Cloud Expert.', // Novo campo
+      'reviewerImagePath': 'assets/images/projects/fernando.jpg', // Novo campo
+    },
+    // Adicione mais projetos aqui
+  ];
 
   @override
   void initState() {
@@ -119,9 +177,10 @@ class _ProjectsPageState extends State<ProjectsPage>
                                 _currentIndex = index;
                               });
                             },
-                            itemCount: 4, // Número de projetos
+                            itemCount: _projects.length,
                             itemBuilder: (context, index) {
                               final isCurrent = index == _currentIndex;
+                              final project = _projects[index];
                               return AnimatedContainer(
                                 duration: Duration(milliseconds: 300),
                                 padding: const EdgeInsets.symmetric(
@@ -130,331 +189,21 @@ class _ProjectsPageState extends State<ProjectsPage>
                                 transform:
                                     Matrix4.identity()
                                       ..scale(isCurrent ? 1.0 : 0.9),
-                                child: Container(
-                                  height:
-                                      double
-                                          .infinity, // Card ocupa altura máxima
-                                  decoration: BoxDecoration(
-                                    color: Colors.black.withAlpha(
-                                      150,
-                                    ), // Fundo preto com opacidade baixa
-                                    borderRadius: BorderRadius.circular(10),
-                                    border: Border.all(
-                                      color: Colors.white,
-                                      width: 2,
-                                    ),
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      // Imagem no lado esquerdo
-                                      Expanded(
-                                        flex: 2,
-                                        child: ClipRRect(
-                                          borderRadius: BorderRadius.only(
-                                            topLeft: Radius.circular(10),
-                                            bottomLeft: Radius.circular(10),
-                                          ),
-                                          child: Image.asset(
-                                            'assets/images/projects/findout.png', // Substitua pelo caminho correto da imagem
-                                            fit: BoxFit.cover,
-                                            height: double.infinity,
-                                          ),
-                                        ),
-                                      ),
-                                      // Dados do projeto no centro
-                                      Expanded(
-                                        flex: 5,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(15.0),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                              Text(
-                                                'FindOut',
-                                                style: TextStyle(
-                                                  fontSize: 40,
-                                                  fontWeight: FontWeight.bold,
-                                                  color:
-                                                      Colors
-                                                          .white, // Alterado para branco
-                                                ),
-                                              ),
-                                              SizedBox(height: 10),
-                                              Text(
-                                                'O Find Out é uma plataforma avançada de recuperação veicular que utiliza tecnologia de ponta para auxiliar na localização e recuperação de veículos. Com verificação de placas em tempo real, alertas inteligentes e histórico completo, o Find Out oferece segurança e tranquilidade para seus usuários.',
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  color:
-                                                      Colors
-                                                          .white, // Alterado para branco
-                                                ),
-                                              ),
-                                              SizedBox(height: 10),
-                                              Text(
-                                                'Features:',
-                                                style: TextStyle(
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.bold,
-                                                  color:
-                                                      Colors
-                                                          .white, // Alterado para branco
-                                                ),
-                                              ),
-                                              Text(
-                                                '- Supabase integrations\n- Login/Logout/Register/Recover\n- Google Maps integration\n- Camera integration\n- Realtime Database\n- 2 FactorAuth',
-                                                style: TextStyle(
-                                                  fontSize: 14,
-                                                  color:
-                                                      Colors
-                                                          .white, // Alterado para branco
-                                                ),
-                                              ),
-                                              Spacer(),
-
-                                              Row(
-                                                children: [
-                                                  Chip(
-                                                    backgroundColor:
-                                                        Colors.blue,
-
-                                                    shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                            20,
-                                                          ),
-                                                    ),
-                                                    label: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.flutter_dash,
-                                                          color: Colors.black,
-                                                        ),
-                                                        SizedBox(width: 5),
-                                                        Text(
-                                                          'Flutter',
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                  SizedBox(width: 10),
-                                                  Chip(
-                                                    backgroundColor: Color(
-                                                      0xFFc6ff00,
-                                                    ),
-                                                    shape: RoundedRectangleBorder(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                            20,
-                                                          ),
-                                                    ),
-                                                    label: Row(
-                                                      mainAxisSize:
-                                                          MainAxisSize.min,
-                                                      children: [
-                                                        Icon(
-                                                          Icons.android,
-                                                          color: Colors.black,
-                                                        ),
-                                                        SizedBox(width: 5),
-                                                        Text(
-                                                          'Android',
-                                                          style: TextStyle(
-                                                            color: Colors.black,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                      // Botão "Visitar" no lado direito
-                                      Expanded(
-                                        flex: 2,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(16.0),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-
-                                            children: [
-                                              Column(
-                                                children: [
-                                                  Row(
-                                                    children: [
-                                                      CircleAvatar(
-                                                        radius: 30,
-                                                        backgroundImage: AssetImage(
-                                                          'assets/images/profile.jpg', // Substitua pelo caminho correto da imagem
-                                                        ),
-                                                      ),
-                                                      SizedBox(width: 10),
-                                                      Column(
-                                                        crossAxisAlignment:
-                                                            CrossAxisAlignment
-                                                                .start,
-                                                        children: [
-                                                          Text(
-                                                            "Name",
-                                                            style: TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .bold,
-                                                              fontSize: 20,
-                                                            ),
-                                                          ),
-                                                          Row(
-                                                            children: [
-                                                              Icon(
-                                                                Icons
-                                                                    .star_sharp,
-                                                                color:
-                                                                    Colors
-                                                                        .amber,
-                                                                size: 20,
-                                                              ),
-                                                              Icon(
-                                                                Icons
-                                                                    .star_sharp,
-                                                                color:
-                                                                    Colors
-                                                                        .amber,
-                                                                size: 20,
-                                                              ),
-                                                              Icon(
-                                                                Icons
-                                                                    .star_sharp,
-                                                                color:
-                                                                    Colors
-                                                                        .amber,
-                                                                size: 20,
-                                                              ),
-                                                              Icon(
-                                                                Icons
-                                                                    .star_sharp,
-                                                                color:
-                                                                    Colors
-                                                                        .amber,
-                                                                size: 20,
-                                                              ),
-                                                              Icon(
-                                                                Icons
-                                                                    .star_sharp,
-                                                                color:
-                                                                    Colors
-                                                                        .amber,
-                                                                size: 20,
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ],
-                                                      ),
-                                                    ],
-                                                  ),
-                                                  SizedBox(height: 10),
-                                                  Text(
-                                                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse erat massa, sodales dapibus molestie at, volutpat eget neque. Phasellus aliquet orci maximus magna ornare finibus. Integer et sagittis tortor. Vivamus id lobortis lectus. Aliquam egestas vel risus in varius. Vestibulum sit amet consectetur metus.",
-                                                    style: TextStyle(
-                                                      color: Colors.white,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontSize: 15,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-
-                                              SizedBox(height: 10),
-                                              MouseRegion(
-                                                onEnter:
-                                                    (_) => setState(() {
-                                                      _isHovering['button'] =
-                                                          true;
-                                                    }),
-                                                onExit:
-                                                    (_) => setState(() {
-                                                      _isHovering['button'] =
-                                                          false;
-                                                    }),
-                                                child: AnimatedContainer(
-                                                  duration: Duration(
-                                                    milliseconds: 200,
-                                                  ),
-                                                  decoration: BoxDecoration(
-                                                    color:
-                                                        _isHovering['button']!
-                                                            ? Colors.white
-                                                            : Colors
-                                                                .transparent,
-                                                    border: Border.all(
-                                                      color: Colors.white,
-                                                      width: 2,
-                                                    ),
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                          0,
-                                                        ),
-                                                  ),
-                                                  child: OutlinedButton(
-                                                    onPressed: _launchURL,
-                                                    style: OutlinedButton.styleFrom(
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      side: BorderSide(
-                                                        color:
-                                                            Colors.transparent,
-                                                        width: 2,
-                                                      ),
-                                                      shape: RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.circular(
-                                                              0,
-                                                            ),
-                                                      ),
-                                                    ),
-                                                    child: Padding(
-                                                      padding:
-                                                          const EdgeInsets.all(
-                                                            15.0,
-                                                          ),
-                                                      child: Text(
-                                                        'Visit',
-                                                        style: TextStyle(
-                                                          color:
-                                                              _isHovering['button']!
-                                                                  ? Colors.black
-                                                                  : Colors
-                                                                      .white,
-                                                          fontSize: 20,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-                                    ],
-                                  ),
+                                child: ProjectCard(
+                                  title: project['title'],
+                                  description: project['description'],
+                                  features: project['features'],
+                                  imagePath: project['imagePath'],
+                                  tags: project['tags'],
+                                  isCurrent: isCurrent,
+                                  onVisitPressed: _launchURL,
+                                  link: project['link'], // Passando o link
+                                  reviewerName:
+                                      project['reviewerName'], // Passando o novo campo
+                                  reviewerDescription:
+                                      project['reviewerDescription'], // Passando o novo campo
+                                  reviewerImagePath:
+                                      project['reviewerImagePath'], // Passando o novo campo
                                 ),
                               );
                             },
@@ -484,7 +233,7 @@ class _ProjectsPageState extends State<ProjectsPage>
                                 color: Colors.white,
                               ),
                               onPressed: () {
-                                if (_currentIndex < 3) {
+                                if (_currentIndex < _projects.length - 1) {
                                   _pageController.nextPage(
                                     duration: Duration(milliseconds: 300),
                                     curve: Curves.easeInOut,

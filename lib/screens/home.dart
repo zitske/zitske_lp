@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../elements/appbar.dart';
+import 'package:flutter_3d_controller/flutter_3d_controller.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -15,7 +16,7 @@ class _MyHomePageState extends State<MyHomePage>
   late AnimationController _controller;
   late Animation<Offset> _offsetAnimation;
   late Animation<double> _opacityAnimation;
-
+  Flutter3DController controller3d = Flutter3DController();
   @override
   void initState() {
     super.initState();
@@ -32,6 +33,8 @@ class _MyHomePageState extends State<MyHomePage>
       end: 1.0,
     ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
     _controller.forward();
+
+    // Adiciona listener para executar ações após o modelo ser carregado
   }
 
   @override
@@ -123,7 +126,13 @@ class _MyHomePageState extends State<MyHomePage>
                           borderRadius: BorderRadius.circular(0),
                         ),
                         child: OutlinedButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            _controller.reverse().then((_) {
+                              Navigator.of(
+                                context,
+                              ).pushReplacementNamed('/projects');
+                            });
+                          },
                           style: OutlinedButton.styleFrom(
                             backgroundColor: Colors.transparent,
                             side: BorderSide(
@@ -153,6 +162,20 @@ class _MyHomePageState extends State<MyHomePage>
                     ),
                   ],
                 ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: MediaQuery.of(context).size.height / 4,
+            left: MediaQuery.of(context).size.width / 4,
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height / 2,
+              width: MediaQuery.of(context).size.width / 2,
+              child: Flutter3DViewer(
+                src: 'assets/3d/iphone_16_pro_max.glb',
+                activeGestureInterceptor: false,
+                enableTouch: false,
+                controller: controller3d,
               ),
             ),
           ),
