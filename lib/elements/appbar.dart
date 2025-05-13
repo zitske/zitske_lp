@@ -17,31 +17,25 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       backgroundColor: Colors.transparent,
       elevation: 0,
       centerTitle: true,
-      title: Padding(
-        padding: const EdgeInsets.only(right: 80.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.only(left: 120.0),
-              child: Text(
-                "ZITSKE GROUP",
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 30,
-                  fontWeight: FontWeight.normal,
-                ),
-              ),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Text(
+            "ZITSKE GROUP",
+            style: TextStyle(
+              color: Colors.white,
+              fontSize: 30,
+              fontWeight: FontWeight.normal,
             ),
-            const Spacer(),
-            _buildMenuItem(context, 'Home', '/'),
-            _buildMenuItem(context, 'About', '/about'),
-            _buildMenuItem(context, 'Projects', '/projects'),
-            _buildMenuItem(context, 'Contact', '/contact'),
-            const Spacer(),
-            const SizedBox(width: 120),
-          ],
-        ),
+          ),
+          /*const Spacer(),
+          _buildMenuItem(context, 'Home', '/'),
+          _buildMenuItem(context, 'About', '/about'),
+          _buildMenuItem(context, 'Projects', '/projects'),
+          _buildMenuItem(context, 'Contact', '/contact'),
+          const Spacer(),
+          const SizedBox(width: 120),*/
+        ],
       ),
     );
   }

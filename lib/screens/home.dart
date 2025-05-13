@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../elements/appbar.dart';
 import 'package:flutter_3d_controller/flutter_3d_controller.dart';
 
@@ -80,92 +81,97 @@ class _MyHomePageState extends State<MyHomePage>
               position: _offsetAnimation,
               child: FadeTransition(
                 opacity: _opacityAnimation,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 50,
-                    ), // Adicione esta linha para mover o texto para cima
-                    Text(
-                      'LET`S BUILD THE FUTURE',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 70,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      'Turning ideas into code and building innovative solutions for the future.',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ), // Adicione esta linha para espaçamento
-                    MouseRegion(
-                      onEnter:
-                          (_) => setState(() {
-                            _isHovering['button'] = true;
-                          }),
-                      onExit:
-                          (_) => setState(() {
-                            _isHovering['button'] = false;
-                          }),
-                      child: AnimatedContainer(
-                        duration: Duration(milliseconds: 200),
-                        decoration: BoxDecoration(
-                          color:
-                              _isHovering['button']!
-                                  ? Colors.white
-                                  : Colors.transparent,
-
-                          border: Border.all(color: Colors.white, width: 2),
-                          borderRadius: BorderRadius.circular(0),
+                child: Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 50,
+                      ), // Adicione esta linha para mover o texto para cima
+                      Text(
+                        'LET`S BUILD THE FUTURE',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 70,
+                          fontWeight: FontWeight.bold,
                         ),
-                        child: OutlinedButton(
-                          onPressed: () {
-                            _controller.reverse().then((_) {
-                              Navigator.of(
-                                context,
-                              ).pushReplacementNamed('/projects');
-                            });
-                          },
-                          style: OutlinedButton.styleFrom(
-                            backgroundColor: Colors.transparent,
-                            side: BorderSide(
-                              color: Colors.transparent,
-                              width: 2,
-                            ),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(0),
-                            ),
+                      ),
+                      Text(
+                        'Turning ideas into code and building innovative solutions for the future.',
+                        style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 20,
+                          fontWeight: FontWeight.normal,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ), // Adicione esta linha para espaçamento
+                      MouseRegion(
+                        onEnter:
+                            (_) => setState(() {
+                              _isHovering['button'] = true;
+                            }),
+                        onExit:
+                            (_) => setState(() {
+                              _isHovering['button'] = false;
+                            }),
+                        child: AnimatedContainer(
+                          duration: Duration(milliseconds: 200),
+                          decoration: BoxDecoration(
+                            color:
+                                _isHovering['button']!
+                                    ? Colors.white
+                                    : Colors.transparent,
+
+                            border: Border.all(color: Colors.white, width: 2),
+                            borderRadius: BorderRadius.circular(0),
                           ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(15.0),
-                            child: Text(
-                              'View Portfolio',
-                              style: TextStyle(
-                                color:
-                                    _isHovering['button']!
-                                        ? Colors.black
-                                        : Colors.white,
-                                fontSize: 20,
-                                fontWeight: FontWeight.bold,
+                          child: OutlinedButton(
+                            onPressed: () {
+                              launchUrl(Uri.parse('wa.me/+14079697555'));
+                              /*
+                              _controller.reverse().then((_) {
+                                Navigator.of(
+                                  context,
+                                ).pushReplacementNamed('/projects');
+                              });*/
+                            },
+                            style: OutlinedButton.styleFrom(
+                              backgroundColor: Colors.transparent,
+                              side: BorderSide(
+                                color: Colors.transparent,
+                                width: 2,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(0),
+                              ),
+                            ),
+                            child: Padding(
+                              padding: const EdgeInsets.all(15.0),
+                              child: Text(
+                                'Contact Us',
+                                style: TextStyle(
+                                  color:
+                                      _isHovering['button']!
+                                          ? Colors.black
+                                          : Colors.white,
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.bold,
+                                ),
                               ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
-          Positioned(
+          /* Positioned(
             top: MediaQuery.of(context).size.height / 4,
             left: MediaQuery.of(context).size.width / 4,
             child: SizedBox(
@@ -178,10 +184,10 @@ class _MyHomePageState extends State<MyHomePage>
                 controller: controller3d,
               ),
             ),
-          ),
+          ),*/
           Positioned(
             bottom: 10,
-            left: MediaQuery.of(context).size.width / 2.2,
+            left: 16,
             child: Text(
               'Zitske Group Corp. © 2025',
               style: TextStyle(
