@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../elements/appbar.dart';
 import 'package:flutter_3d_controller/flutter_3d_controller.dart';
+import '../widgets/support_bottom_sheet.dart';
 
 class MyHomePage extends StatefulWidget {
   const MyHomePage({super.key, required this.title});
@@ -50,12 +51,22 @@ class _MyHomePageState extends State<MyHomePage>
     'Projects': false,
     'Contact': false,
     'button': false,
+    'support': false,
   };
 
   void _handleMenuItemHover(String title) {
     setState(() {
       _isHovering.updateAll((key, value) => key == title);
     });
+  }
+
+  void _showSupportBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => SupportBottomSheet(),
+    );
   }
 
   @override
@@ -108,62 +119,127 @@ class _MyHomePageState extends State<MyHomePage>
                       SizedBox(
                         height: 20,
                       ), // Adicione esta linha para espaçamento
-                      MouseRegion(
-                        onEnter:
-                            (_) => setState(() {
-                              _isHovering['button'] = true;
-                            }),
-                        onExit:
-                            (_) => setState(() {
-                              _isHovering['button'] = false;
-                            }),
-                        child: AnimatedContainer(
-                          duration: Duration(milliseconds: 200),
-                          decoration: BoxDecoration(
-                            color:
-                                _isHovering['button']!
-                                    ? Colors.white
-                                    : Colors.transparent,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          MouseRegion(
+                            onEnter:
+                                (_) => setState(() {
+                                  _isHovering['button'] = true;
+                                }),
+                            onExit:
+                                (_) => setState(() {
+                                  _isHovering['button'] = false;
+                                }),
+                            child: AnimatedContainer(
+                              duration: Duration(milliseconds: 200),
+                              decoration: BoxDecoration(
+                                color:
+                                    _isHovering['button']!
+                                        ? Colors.white
+                                        : Colors.transparent,
 
-                            border: Border.all(color: Colors.white, width: 2),
-                            borderRadius: BorderRadius.circular(0),
-                          ),
-                          child: OutlinedButton(
-                            onPressed: () {
-                              launchUrl(Uri.parse('wa.me/+14079697555'));
-                              /*
-                              _controller.reverse().then((_) {
-                                Navigator.of(
-                                  context,
-                                ).pushReplacementNamed('/projects');
-                              });*/
-                            },
-                            style: OutlinedButton.styleFrom(
-                              backgroundColor: Colors.transparent,
-                              side: BorderSide(
-                                color: Colors.transparent,
-                                width: 2,
-                              ),
-                              shape: RoundedRectangleBorder(
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 2,
+                                ),
                                 borderRadius: BorderRadius.circular(0),
                               ),
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(15.0),
-                              child: Text(
-                                'Contact Us',
-                                style: TextStyle(
-                                  color:
-                                      _isHovering['button']!
-                                          ? Colors.black
-                                          : Colors.white,
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
+                              child: OutlinedButton(
+                                onPressed: () async {
+                                  final url = Uri.parse(
+                                    'https://wa.me/+14079697555',
+                                  );
+                                  if (await canLaunchUrl(url)) {
+                                    await launchUrl(
+                                      url,
+                                      mode: LaunchMode.externalApplication,
+                                    );
+                                  }
+                                },
+                                style: OutlinedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  side: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 2,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(0),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Text(
+                                    'Contact Us',
+                                    style: TextStyle(
+                                      color:
+                                          _isHovering['button']!
+                                              ? Colors.black
+                                              : Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
+                          SizedBox(width: 20),
+                          MouseRegion(
+                            onEnter:
+                                (_) => setState(() {
+                                  _isHovering['support'] = true;
+                                }),
+                            onExit:
+                                (_) => setState(() {
+                                  _isHovering['support'] = false;
+                                }),
+                            child: AnimatedContainer(
+                              duration: Duration(milliseconds: 200),
+                              decoration: BoxDecoration(
+                                color:
+                                    _isHovering['support']!
+                                        ? Colors.white
+                                        : Colors.transparent,
+
+                                border: Border.all(
+                                  color: Colors.white,
+                                  width: 2,
+                                ),
+                                borderRadius: BorderRadius.circular(0),
+                              ),
+                              child: OutlinedButton(
+                                onPressed: () {
+                                  _showSupportBottomSheet(context);
+                                },
+                                style: OutlinedButton.styleFrom(
+                                  backgroundColor: Colors.transparent,
+                                  side: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 2,
+                                  ),
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(0),
+                                  ),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(15.0),
+                                  child: Text(
+                                    'Support',
+                                    style: TextStyle(
+                                      color:
+                                          _isHovering['support']!
+                                              ? Colors.black
+                                              : Colors.white,
+                                      fontSize: 20,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),

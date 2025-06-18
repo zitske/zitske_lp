@@ -40,62 +40,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     );
   }
 
-  Widget _buildMenuItem(BuildContext context, String title, String route) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: MouseRegion(
-        onHover: (_) {
-          onMenuItemTap(title);
-          (context as Element).markNeedsBuild();
-        },
-        onExit: (_) {
-          onMenuItemTap('');
-          (context as Element).markNeedsBuild();
-        },
-        child: GestureDetector(
-          onTap: () {
-            Navigator.pushReplacementNamed(context, route);
-          },
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                title,
-                style: const TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 14,
-                  color: Colors.white,
-                ),
-              ),
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 200),
-                height: 1,
-                width:
-                    isHovering[title] == true
-                        ? (title.length * 6.15).toDouble()
-                        : 0,
-                color: Colors.white,
-                alignment: Alignment.centerLeft,
-                child: Align(
-                  alignment:
-                      isHovering[title] == true
-                          ? Alignment.centerRight
-                          : Alignment.centerLeft,
-                  child: Container(
-                    height: 1,
-                    width: double.infinity,
-                    color: Colors.white,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-
   @override
   Size get preferredSize => const Size.fromHeight(100);
 }
